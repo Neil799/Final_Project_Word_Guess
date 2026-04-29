@@ -2,10 +2,27 @@
 import pygame
 from pygame import mixer
 from Tile import Tile
+from Board import Board
 
 screen = pygame.display.set_mode((900, 600))
 
-color = (0,0,50)
-test_tile = Tile(50,50,50,50,color)
-while True:
-    test_tile.display(screen)
+empty_box_color = (194,197,204)
+    
+
+def main():
+    running = True
+    
+    box = Tile(250,50,60,60,empty_box_color)
+    while running:
+        
+        
+        box.display(screen)
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                running = False
+    
+if __name__ == "__main__":
+    main()
+    pygame.quit()
