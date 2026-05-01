@@ -21,6 +21,7 @@ def main():
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
+                Board.word_chooser()
                 running = False
     
 if __name__ == "__main__":
