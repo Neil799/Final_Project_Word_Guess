@@ -11,4 +11,5 @@ class Tile:
         self.rect = pygame.Rect(x, y, width, height)
     def display(self, screen):
         pygame.draw.rect(screen, self.color, self.rect)
+
     
