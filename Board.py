@@ -9,9 +9,9 @@ class Board:
      def __init__(self, name):
         self.name = name
      def determine_correctness(self, letter, answer_letter, answer):
-          if letter == answer_letter:
+          if letter.lower() == answer_letter:
             return "Green"
-          elif letter in answer:
+          elif letter.lower() in answer:
                return "Yellow"
           else:
             return "Grey"

@@ -11,19 +11,25 @@ pygame.init()
 
 
 SCREEN_WIDTH = 457
-SCREEN_HEIGHT = 554
+SCREEN_HEIGHT = 547
 FONT_COLOR = (0,0,0)
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
-empty_box_color = (194,197,204)
+# empty_box_color = (194,197,204)
     
-font = pygame.font.SysFont('Felix Titling', 50)
+font = pygame.font.SysFont('felixtitling', 48)
+
+
+file = open("validword.txt", "r")
+valid_words = file.read()
+file.close()
+valid_words = valid_words.split("\n")
 
 def main():
     column = 0
     feedback = ""
     words = ["slate", "drink", "jumpy","emcee","snake","cobra", "glass", "trait", "water", "bells", "preps", "pants", "shoes", "grade"]
-    target_word = random.choice(words)
+    target_word = random.choice(valid_words)
     word = ""
     LETTER_X_POS = 40
     LETTER_Y_POS = 20
@@ -40,7 +46,6 @@ def main():
     while running:
         
         
-        # box.display(screen)
         pygame.display.update()
         
         for event in pygame.event.get():
@@ -51,6 +56,7 @@ def main():
                     if event.unicode.isalpha():
                         if len(word) != 5:
                             letter = event.unicode
+                            letter = letter.upper()
                             word += letter
                             print(word)
                             letter_surface = font.render(letter, True, FONT_COLOR)
@@ -60,10 +66,13 @@ def main():
 
                             # elif event.key == pygame.K_BACKSPACE:
                     
-                    
+
                     elif event.key == pygame.K_RETURN:
                         
                         if len(word) == 5:
+                                
+                            if word.lower() in valid_words:
+                                    
                                 for i in range(5):
                                     color = wordle_board.determine_correctness(word[i], target_word[i], target_word)
                                     letter_surface = font.render(word[i], True, color)
@@ -71,7 +80,8 @@ def main():
                                     colors_list.append(color)
                                     letters_list.append(word[i])
                                 # note: make it enter so change vvvv
-                                if word == target_word:
+                                
+                                if word.lower() == target_word:
                                     print("you won!")
                                     done = True
                                 elif column != 5:
@@ -84,15 +94,17 @@ def main():
                                 LETTER_X_POS = 40
                                 LETTER_Y_POS += 90
                                 word = ""
+                            else:
+                                print("invalid word")
                         # note add most of the above stuff into board class
                     elif event.key == pygame.K_BACKSPACE:
                         if len(word) != 0:
+                            # word = word[:-1]
                             word = ""
                             screen.blit(grid, (0,0))
                             LETTER_X_POS = 40
                             LETTER_Y_POS = 20
                             for j in range(len(letters_list)):
-                                
                                 wordle_board.redraw(screen, letters_list[j], colors_list[j], font, LETTER_X_POS, LETTER_Y_POS)
                                 LETTER_X_POS += 85
                                 line_skip_counter+=1
@@ -100,6 +112,7 @@ def main():
                                     LETTER_Y_POS += 90
                                     line_skip_counter = 0
                                     LETTER_X_POS = 40
+                            
                                 
                                 
 
