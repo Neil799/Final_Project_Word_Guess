@@ -1,6 +1,6 @@
 import pygame
 # import random
-# from Tile import Tile
+from Tile import Tile
 
 
 
@@ -11,10 +11,14 @@ class Board:
      def determine_correctness(self, letter, answer_letter, answer):
           if letter.lower() == answer_letter:
             return "Green"
+            
+
           elif letter.lower() in answer:
-               return "Yellow"
+            return "Yellow"
+
           else:
             return "Grey"
+  
      def redraw(self, screen, letter, color, font, x_pos, y_pos):
           letter_surface = font.render(letter, True, color)
           screen.blit(letter_surface, (x_pos, y_pos))
