@@ -19,9 +19,13 @@ class Board:
           else:
             return "Grey"
   
-     def redraw(self, screen, letter, color, font, x_pos, y_pos):
-          letter_surface = font.render(letter, True, color)
+     def redraw_letters(self, screen, letter, color, font, x_pos, y_pos):
+          letter_surface = font.render(letter, True, "white")
           screen.blit(letter_surface, (x_pos, y_pos))
+     def redraw_boxes(self, screen, letter, color, x_pos, y_pos):
+          redrawed_tile = Tile(x_pos, y_pos, 73, 73, color)
+          redrawed_tile.display(screen)
+          
 #     print("Board!")
 #     def word_chooser(self):
 #         words = ["sleep", "drink", "basin"]

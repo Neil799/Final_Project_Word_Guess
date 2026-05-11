@@ -75,7 +75,7 @@ def main():
                             colors_list.append("black")
                             letter_surface = font.render(letter, True, FONT_COLOR)
                             screen.blit(letter_surface, (LETTER_X_POS, LETTER_Y_POS))
-                            LETTER_X_POS+=85
+                            LETTER_X_POS+=87.8
                             
                             
 
@@ -95,11 +95,11 @@ def main():
                                 for i in range(5):
                                     
                                     color = wordle_board.determine_correctness(word[i], target_word[i], target_word)
-                                    letter_surface = font.render(word[i], True, color)
-                                    screen.blit(letter_surface, (40+i*85, 20+column*90))
                                     
-                                # note: make it enter so change vvvv
-                                
+                                    colored_tile = Tile(15+i*87.8,18+column*87.8,73,73,color)
+                                    colored_tile.display(screen)
+                                    letter_surface = font.render(word[i], True, "white")
+                                    screen.blit(letter_surface, (40+i*87.8, 20+column*87.8))
                                     colors_list.append(color)
                                     letters_list.append(word[i])
                                 if word.lower() == target_word:
@@ -114,7 +114,7 @@ def main():
                         
                                 print("enter key")
                                 LETTER_X_POS = 40
-                                LETTER_Y_POS += 90
+                                LETTER_Y_POS += 87.8
                                 word = ""
                             else:
                                 print("invalid word")
@@ -126,20 +126,21 @@ def main():
                             word = word[:-1]
                             # word = ""
                             screen.blit(grid, (0,0))
-                            LETTER_X_POS = 40
+                            LETTER_X_POS = 18
                             LETTER_Y_POS = 20
                             line_skip_counter = 0
                             # screen.fill(WHITE)
                             # draw_tiled_grid(screen)
                             for j in range(len(letters_list)):
-                                wordle_board.redraw(screen, letters_list[j], colors_list[j], font, LETTER_X_POS, LETTER_Y_POS)
 
-                                LETTER_X_POS += 85
+                                wordle_board.redraw_letters(screen, letters_list[j], colors_list[j], font, LETTER_X_POS, LETTER_Y_POS)
+                                wordle_board.redraw_boxes(screen, letters_list[j], colors_list[j], LETTER_X_POS, LETTER_Y_POS)
+                                LETTER_X_POS += 87.8
                                 line_skip_counter+=1
                                 if line_skip_counter == 5:
-                                    LETTER_Y_POS += 90
+                                    LETTER_Y_POS += 87.8
                                     line_skip_counter = 0
-                                    LETTER_X_POS = 40
+                                    LETTER_X_POS = 18
                             
                                 
                                 
