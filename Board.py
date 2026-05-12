@@ -20,7 +20,7 @@ class Board:
             return "Grey"
   
      def redraw_letters(self, screen, letter, color, font, x_pos, y_pos):
-          letter_surface = font.render(letter, True, "white")
+          letter_surface = font.render(letter, True, color)
           screen.blit(letter_surface, (x_pos, y_pos))
      def redraw_boxes(self, screen, letter, color, x_pos, y_pos):
           redrawed_tile = Tile(x_pos, y_pos, 73, 73, color)

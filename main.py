@@ -18,6 +18,7 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 empty_box_color = (194,197,204)
 WHITE = (255, 255, 255)
+BLACK = (0,0,0)
 
 font = pygame.font.SysFont('felixtitling', 48)
 
@@ -126,21 +127,33 @@ def main():
                             word = word[:-1]
                             # word = ""
                             screen.blit(grid, (0,0))
-                            LETTER_X_POS = 18
-                            LETTER_Y_POS = 20
+                            LETTER_X_POS = 15
+                            LETTER_Y_POS = 18
                             line_skip_counter = 0
                             # screen.fill(WHITE)
                             # draw_tiled_grid(screen)
-                            for j in range(len(letters_list)):
-
-                                wordle_board.redraw_letters(screen, letters_list[j], colors_list[j], font, LETTER_X_POS, LETTER_Y_POS)
-                                wordle_board.redraw_boxes(screen, letters_list[j], colors_list[j], LETTER_X_POS, LETTER_Y_POS)
+                            for s in range(num_guesses*5):
+                                wordle_board.redraw_boxes(screen, letters_list[s], colors_list[s], LETTER_X_POS, LETTER_Y_POS)
                                 LETTER_X_POS += 87.8
                                 line_skip_counter+=1
                                 if line_skip_counter == 5:
                                     LETTER_Y_POS += 87.8
                                     line_skip_counter = 0
-                                    LETTER_X_POS = 18
+                                    LETTER_X_POS = 15
+                            LETTER_X_POS = 40
+                            LETTER_Y_POS = 20
+                            for j in range(len(letters_list)): 
+                                if j < num_guesses*5:
+                                    letter_color = WHITE
+                                else:
+                                    letter_color = BLACK
+                                wordle_board.redraw_letters(screen, letters_list[j], letter_color, font, LETTER_X_POS, LETTER_Y_POS)
+                                LETTER_X_POS += 87.8
+                                line_skip_counter+=1
+                                if line_skip_counter == 5:
+                                    LETTER_Y_POS += 87.8
+                                    line_skip_counter = 0
+                                    LETTER_X_POS = 40
                             
                                 
                                 
