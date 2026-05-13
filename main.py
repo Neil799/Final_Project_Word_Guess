@@ -28,6 +28,12 @@ file = open("validword.txt", "r")
 valid_words = file.read()
 file.close()
 valid_words = valid_words.split("\n")
+
+file = open("answerwords.txt", "r")
+answer_words = file.read()
+file.close()
+answer_words = answer_words.split("\n")
+
 # def draw_tiled_grid(screen):
 #     for z in range(6):
 #         for k in range(5):
@@ -37,7 +43,7 @@ def main():
     column = 0
     feedback = ""
     tiles =  []
-    target_word = random.choice(valid_words)
+    target_word = random.choice(answer_words)
     print(target_word)
     word = ""
     LETTER_X_POS = 40
