@@ -1,5 +1,6 @@
 import pygame
 
+Green = (108,169,101)
 
 
 class Win:
@@ -19,5 +20,5 @@ class Win:
             letter_surface = font2.render(f"It took you {num_guesses} guesses!", True, "orange")
         screen.blit(letter_surface, (35, 100))
 
-        answer_surface = font.render(answer, True, "green")
+        answer_surface = font.render(answer, True, Green)
         screen.blit(answer_surface, (95,240))

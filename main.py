@@ -7,6 +7,7 @@ from pygame import mixer
 from Tile import Tile
 from Board import Board
 from Win import Win
+from Lose import Lose
 import time
 pygame.init()
 
@@ -50,6 +51,7 @@ def main():
     done = False
     wordle_board = Board("Wordle_Board")
     win_screen = Win("Win_Screen")
+    lose_screen = Lose("Lose_Screen")
     grid = pygame.image.load('blankgrid.jpg').convert_alpha()
     screen.blit(grid, (0, 0))
     # screen.fill(WHITE)
@@ -105,13 +107,18 @@ def main():
                                     letters_list.append(word[i])
                                 if word.lower() == target_word:
                                     print("you won!")
+                                    pygame.display.flip() 
+                                    pygame.time.delay(2000)
                                     done = True
                                     win_screen.display(screen, target_word, num_guesses)
                                 elif column != 5:
                                     column +=1
                                 else:
                                     print("You lost, word was " + target_word)
+                                    pygame.display.flip()
+                                    pygame.time.delay(2000)
                                     done = True
+                                    lose_screen.display(screen, target_word)
                         
                                 print("enter key")
                                 LETTER_X_POS = 40

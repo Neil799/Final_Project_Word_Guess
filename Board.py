@@ -2,7 +2,9 @@ import pygame
 # import random
 from Tile import Tile
 
-
+Green = (108,169,101)
+Yellow = (200,182,83)
+Grey = (120,124,127)
 
 class Board:
 
@@ -10,14 +12,14 @@ class Board:
         self.name = name
      def determine_correctness(self, letter, answer_letter, answer):
           if letter.lower() == answer_letter:
-            return "Green"
+            return Green
             
 
           elif letter.lower() in answer:
-            return "Yellow"
+            return Yellow
 
           else:
-            return "Grey"
+            return Grey
   
      def redraw_letters(self, screen, letter, color, font, x_pos, y_pos):
           letter_surface = font.render(letter, True, color)
