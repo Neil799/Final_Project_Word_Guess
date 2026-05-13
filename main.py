@@ -97,7 +97,7 @@ def main():
 
                                 for i in range(5):
                                     
-                                    color = wordle_board.determine_correctness(word[i], target_word[i], target_word)
+                                    color = wordle_board.determine_correctness(word[i], target_word[i], target_word, word)
                                     
                                     colored_tile = Tile(15+i*87.8,18+column*87.8,73,73,color)
                                     colored_tile.display(screen)
