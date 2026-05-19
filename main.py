@@ -10,9 +10,15 @@ from Board import Board
 from Win import Win
 from Lose import Lose
 pygame.init()
-
+mixer.init()
 # mixer.music.play(), mixer.music.load("./sounds/bounce.mp3"), mixer.music.set_volume(0.7)
 
+guess_sound = mixer.Sound("./sounds/guess_sound.wav")
+win_sound = mixer.Sound("./sounds/win_sound.mp3")
+lose_sound = mixer.Sound("./sounds/sad_sound.wav")
+win_sound.set_volume(0.7)
+guess_sound.set_volume(0.7)
+lose_sound.set_volume(0.7)
 
 SCREEN_WIDTH = 457
 SCREEN_HEIGHT = 547
@@ -97,6 +103,7 @@ def main():
                         if len(word) == 5:
                                 
                             if word.lower() in valid_words:
+                                guess_sound.play()
                                 num_guesses+=1  
                                 for x in range(5):
                                         del letters_list[-1]
@@ -104,7 +111,7 @@ def main():
 
                                 for i in range(5):
                                     
-                                    color = wordle_board.determine_correctness(word[i], target_word[i], target_word, word)
+                                    color = wordle_board.determine_correctness(i, target_word, word)
                                     
                                     colored_tile = Tile(15+i*87.8,18+column*87.8,73,73,color)
                                     colored_tile.display(screen)
@@ -116,14 +123,17 @@ def main():
                                     print("you won!")
                                     pygame.display.flip() 
                                     pygame.time.delay(2000)
+                                    win_sound.play()
                                     done = True
                                     win_screen.display(screen, target_word, num_guesses)
                                 elif column != 5:
                                     column +=1
                                 else:
+
                                     print("You lost, word was " + target_word)
                                     pygame.display.flip()
                                     pygame.time.delay(2000)
+                                    lose_sound.play()
                                     done = True
                                     lose_screen.display(screen, target_word)
                         

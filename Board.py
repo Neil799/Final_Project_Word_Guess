@@ -10,24 +10,27 @@ class Board:
 
      def __init__(self, name):
         self.name = name
-     def determine_correctness(self, letter, answer_letter, answer, guess):
-          letter_count = answer.count(letter)
-          letter_number = 0
-          if letter.lower() == answer_letter:
-            letter_number +=1
-            
-            return Green
+     def determine_correctness(self, i, answer, guess):
+          letter = guess[i].lower()
+          if letter == answer[i]:
+              return Green
 
-          elif letter.lower() in answer:
-            if letter_number == letter_count:
-                letter_number +=1
-                return Yellow
-            else:
-                return Grey
-            
+          if letter not in answer:
+              return Grey
 
-          else:
-            return Grey
+          total_letters = answer.count(letter)
+          letter_used = 0
+          for j in range(i):
+              if guess[j].lower() != letter:
+                  continue
+              if guess[j].lower() == answer[j]:
+                  letter_used += 1
+              elif letter_used < total_letters:
+                  letter_used += 1
+
+          if letter_used < total_letters:
+              return Yellow
+          return Grey
   
      def redraw_letters(self, screen, letter, color, font, x_pos, y_pos):
           letter_surface = font.render(letter, True, color)
@@ -35,10 +38,4 @@ class Board:
      def redraw_boxes(self, screen, letter, color, x_pos, y_pos):
           redrawed_tile = Tile(x_pos, y_pos, 73, 73, color)
           redrawed_tile.display(screen)
-          
-#     print("Board!")
-#     def word_chooser(self):
-#         words = ["sleep", "drink", "basin"]
-#         secret_word = random.randint(words)
-#         print(secret_word)
-#     # note: this class will store guesses and determine guess correctness
+   
