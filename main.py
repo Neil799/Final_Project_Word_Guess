@@ -16,15 +16,17 @@ mixer.init()
 guess_sound = mixer.Sound("./sounds/guess_sound.wav")
 win_sound = mixer.Sound("./sounds/win_sound.mp3")
 lose_sound = mixer.Sound("./sounds/sad_sound.wav")
+key_sound = mixer.Sound("./sounds/key_clack.wav")
 win_sound.set_volume(0.7)
 guess_sound.set_volume(0.7)
 lose_sound.set_volume(0.7)
+key_sound.set_volume(0.7)
 
 SCREEN_WIDTH = 457
 SCREEN_HEIGHT = 547
 FONT_COLOR = (0,0,0)
 
-empty_box_color = (194,197,204)
+empty_box_color = (216,218,220)
 WHITE = (255, 255, 255)
 BLACK = (0,0,0)
 
@@ -67,13 +69,10 @@ def main():
     lose_screen = Lose("Lose_Screen")
     # grid = pygame.image.load('blankgrid.jpg').convert_alpha()
     # screen.blit(grid, (0, 0))
-    # screen.fill(WHITE)
+    screen.fill(WHITE)
     draw_tiled_grid(screen)
 
     while running:
-        
-        
-        
         pygame.display.update()
         
         for event in pygame.event.get():
@@ -83,6 +82,7 @@ def main():
                 if event.type == pygame.KEYDOWN:
                     if event.unicode.isalpha():
                         if len(word) != 5:
+                            key_sound.play()
                             letter = event.unicode
                             letter = letter.upper()
                             word += letter
@@ -92,11 +92,7 @@ def main():
                             letter_surface = font.render(letter, True, FONT_COLOR)
                             screen.blit(letter_surface, (LETTER_X_POS, LETTER_Y_POS))
                             LETTER_X_POS+=87.8
-                            
-                            
-
-                            # elif event.key == pygame.K_BACKSPACE:
-                    
+                                                
 
                     elif event.key == pygame.K_RETURN:
                         
@@ -146,6 +142,7 @@ def main():
                         # note add most of the above stuff into board class
                     elif event.key == pygame.K_BACKSPACE:
                         if len(word) != 0:
+                            key_sound.play()
                             del letters_list[-1]
                             del colors_list[-1]
                             word = word[:-1]
