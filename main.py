@@ -1,25 +1,28 @@
 # note to self: find a way to find the center of each box
 
 # imports
-import pygame
 import random
+import time
+import pygame
 from pygame import mixer
 from Tile import Tile
 from Board import Board
 from Win import Win
 from Lose import Lose
-import time
 pygame.init()
+
+# mixer.music.play(), mixer.music.load("./sounds/bounce.mp3"), mixer.music.set_volume(0.7)
 
 
 SCREEN_WIDTH = 457
 SCREEN_HEIGHT = 547
 FONT_COLOR = (0,0,0)
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 empty_box_color = (194,197,204)
 WHITE = (255, 255, 255)
 BLACK = (0,0,0)
+
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 font = pygame.font.SysFont('felixtitling', 48)
 
@@ -34,17 +37,15 @@ answer_words = file.read()
 file.close()
 answer_words = answer_words.split("\n")
 
-# def draw_tiled_grid(screen):
-#     for z in range(6):
-#         for k in range(5):
-#             box = Tile((87.8*k)+15,(87.8*z)+18,73,73,empty_box_color)
-#             box.display(screen)
+def draw_tiled_grid(screen):
+    for z in range(6):
+        for k in range(5):
+            box = Tile((87.8*k)+15,(87.8*z)+18,73,73,empty_box_color)
+            box.display(screen)
 def main():
     column = 0
-    feedback = ""
-    tiles =  []
     target_word = random.choice(answer_words)
-    print(target_word)
+    # print(target_word)
     word = ""
     LETTER_X_POS = 40
     LETTER_Y_POS = 20
@@ -58,10 +59,10 @@ def main():
     wordle_board = Board("Wordle_Board")
     win_screen = Win("Win_Screen")
     lose_screen = Lose("Lose_Screen")
-    grid = pygame.image.load('blankgrid.jpg').convert_alpha()
-    screen.blit(grid, (0, 0))
+    # grid = pygame.image.load('blankgrid.jpg').convert_alpha()
+    # screen.blit(grid, (0, 0))
     # screen.fill(WHITE)
-    # draw_tiled_grid(screen)
+    draw_tiled_grid(screen)
 
     while running:
         
@@ -139,12 +140,12 @@ def main():
                             del colors_list[-1]
                             word = word[:-1]
                             # word = ""
-                            screen.blit(grid, (0,0))
+                            # screen.blit(grid, (0,0))
                             LETTER_X_POS = 15
                             LETTER_Y_POS = 18
                             line_skip_counter = 0
                             # screen.fill(WHITE)
-                            # draw_tiled_grid(screen)
+                            draw_tiled_grid(screen)
                             for s in range(num_guesses*5):
                                 wordle_board.redraw_boxes(screen, letters_list[s], colors_list[s], LETTER_X_POS, LETTER_Y_POS)
                                 LETTER_X_POS += 87.8

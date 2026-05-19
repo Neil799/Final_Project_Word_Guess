@@ -11,17 +11,20 @@ class Board:
      def __init__(self, name):
         self.name = name
      def determine_correctness(self, letter, answer_letter, answer, guess):
+          letter_count = answer.count(letter)
+          letter_number = 0
           if letter.lower() == answer_letter:
-            return Green
+            letter_number +=1
             
+            return Green
 
           elif letter.lower() in answer:
-
-            
-            if guess.count(letter) <= answer.count(letter.lower()):
-              return Yellow
+            if letter_number == letter_count:
+                letter_number +=1
+                return Yellow
             else:
-               return Grey
+                return Grey
+            
 
           else:
             return Grey
